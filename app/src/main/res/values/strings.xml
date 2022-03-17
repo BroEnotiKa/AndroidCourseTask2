@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Track your habits</string>
+    <string name="select_border_color">Select border color</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="priority">Priority</string>
+    <string name="type">Type</string>
+    <string name="good">Good</string>
+    <string name="bad">Bad</string>
+    <string name="periodicity">Periodicity</string>
+    <string name="repeat">Repeat</string>
+    <string name="times_every">times every</string>
+    <string name="days">days</string>
+    <string name="save">Save</string>
+    <string name="fab">fab</string>
+</resources>
