@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/nav_habits">
+
+    <fragment
+        android:id="@+id/nav_habits"
+        android:name="com.example.task2.fragments.HabitTypeTabsFragment"
+        android:label="@string/habits"
+        tools:layout="@layout/habit_type_tabs_fragment" >
+        <action
+            android:id="@+id/action_from_nav_habits_to_nav_edit_habit"
+            app:destination="@id/nav_edit_habit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edit_habit"
+        android:name="com.example.task2.fragments.EditHabitFragment"
+        android:label="@string/edit_habit"
+        tools:layout="@layout/edit_habit_fragment" >
+        <action
+            android:id="@+id/action_nav_edit_habit_to_nav_habits"
+            app:popUpTo="@id/nav_habits"
+            app:popUpToInclusive="true"
+            app:destination="@id/nav_habits" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.example.task2.fragments.AboutFragment"
+        android:label="@string/about"
+        tools:layout="@layout/about_fragment" />
+
+</navigation>

@@ -1,4 +1,4 @@
-package com.example.task2
+package com.example.task2.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
+import com.example.task2.R
 import com.example.task2.models.IColorSetter
 
 class ColorPickerFragment: DialogFragment() {
@@ -31,10 +32,11 @@ class ColorPickerFragment: DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        colorSetter = activity as IColorSetter
+        colorSetter = parentFragment as IColorSetter
     }
 
-    private fun setColorFrom(colorButton: Button){
+    private fun setColorFrom(colorButton: Button) {
         colorSetter.useColor(colorButton.currentHintTextColor)
+        dismiss()
     }
 }

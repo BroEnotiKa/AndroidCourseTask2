@@ -1,7 +1,7 @@
 <resources>
     <string-array name="priorities" >
         <item>Low</item>
-        <item>Mid</item>
+        <item>Middle</item>
         <item>High</item>
     </string-array>
 </resources>

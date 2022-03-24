@@ -1,33 +1,40 @@
-package com.example.task2.activities
+package com.example.task2.fragments
 
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
-import com.example.task2.ColorPickerFragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.task2.R
-import com.example.task2.databinding.ActivityEditHabitBinding
+import com.example.task2.databinding.EditHabitFragmentBinding
 import com.example.task2.models.*
-import com.example.task2.storage.*
+import com.example.task2.storage.HabitStorage
 import java.util.*
 
-class EditHabitActivity : AppCompatActivity(), IColorSetter {
+class EditHabitFragment: Fragment(), IColorSetter {
     companion object {
         const val HABIT_ID = "HABIT_ID"
     }
 
-    private lateinit var binding: ActivityEditHabitBinding
-    private lateinit var colorFragment: DialogFragment
+    private lateinit var binding: EditHabitFragmentBinding
     var borderColor: Int = com.google.android.material.R.color.design_default_color_primary
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityEditHabitBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = EditHabitFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val habitId = intent.getSerializableExtra(HABIT_ID) as UUID?
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val habitId = arguments?.getSerializable(HABIT_ID) as UUID?
         if (habitId != null) {
             updateView(habitId)
             binding.btnSaveHabit.setOnClickListener { save(habitId) }
@@ -37,9 +44,8 @@ class EditHabitActivity : AppCompatActivity(), IColorSetter {
         }
 
         binding.fabBorderColor.setOnClickListener {
-            colorFragment.show(supportFragmentManager, ColorPickerFragment.TAG)
+            ColorPickerFragment().show(childFragmentManager, ColorPickerFragment.TAG)
         }
-        colorFragment = ColorPickerFragment()
     }
 
     private fun updateView(habitId: UUID) {
@@ -67,7 +73,7 @@ class EditHabitActivity : AppCompatActivity(), IColorSetter {
             return
 
         val checkedRadioButtonId = binding.radioGroup.checkedRadioButtonId
-        val habitTypeValue = binding.radioGroup.indexOfChild(findViewById(checkedRadioButtonId))
+        val habitTypeValue = binding.radioGroup.indexOfChild(requireView().findViewById(checkedRadioButtonId))
 
         val habitData = HabitData(
             habitId,
@@ -84,11 +90,7 @@ class EditHabitActivity : AppCompatActivity(), IColorSetter {
 
         HabitStorage.addOrUpdate(habitData)
 
-        val intent = Intent(this, MainActivity::class.java)
-            .putExtra(HABIT_ID, habitId)
-
-        setResult(RESULT_OK, intent)
-        finish()
+        view?.findNavController()?.navigate(R.id.action_nav_edit_habit_to_nav_habits)
     }
 
     private fun highlightNotFilledFields(): Boolean {
@@ -124,6 +126,5 @@ class EditHabitActivity : AppCompatActivity(), IColorSetter {
     override fun useColor(color: Int) {
         this.borderColor = color
         binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(color)
-        colorFragment.dismiss()
     }
 }

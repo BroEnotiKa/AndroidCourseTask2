@@ -13,4 +13,15 @@
     <string name="days">days</string>
     <string name="save">Save</string>
     <string name="fab">fab</string>
+    <string name="habit_name_placeholder">Habit: %s</string>
+    <string name="habit_description_placeholder">Description: %s</string>
+    <string name="habit_type_placeholder">Type: %s</string>
+    <string name="habit_priority_placeholder">%s</string>
+    <string name="habit_periodicity_placeholder">Repeat %s times every %s days</string>
+    <string name="habits_title">Habits</string>
+    <string name="about_title">About</string>
+    <string name="about_text">Your own habits tracker</string>
+    <string name="habits">Habits</string>
+    <string name="edit_habit">Edit habit</string>
+    <string name="about">About</string>
 </resources>

@@ -6,17 +6,30 @@
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/drawable/gradient.xml" value="0.144" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/drawable/habit_view_border.xml" value="0.124" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/drawable/item_border.xml" value="0.196" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/about_fragment.xml" value="0.10790273556231003" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/activity_edit_habit.xml" value="0.1" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/activity_main_bar.xml" value="0.19322916666666667" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/activity_main_drawer.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/color_picker.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/content_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/edit_habit_activity.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/edit_habit_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/fragment_about.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/fragment_first.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/fragment_second.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/fragment_view_pager.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/habit_edit_activity.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/habit_items.xml" value="0.15416666666666667" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/habit_type_tabs_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/habits_fragment.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/item_habits.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/recycler_view_item.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/settings_activity.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/layout/view_pager_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/menu/activity_main_drawer.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/menu/activity_main_menu.xml" value="0.20136054421768707" />
+        <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/menu/test.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/d.stukov/AndroidStudioProjects/Task2/app/src/main/res/xml/root_preferences.xml" value="0.18385416666666668" />
       </map>
     </option>

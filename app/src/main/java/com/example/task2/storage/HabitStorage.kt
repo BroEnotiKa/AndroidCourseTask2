@@ -1,13 +1,12 @@
 package com.example.task2.storage
 
 import com.example.task2.models.HabitData
+import com.example.task2.models.HabitType
 import java.util.*
 
 object HabitStorage {
     private val keys = mutableListOf<UUID>()
     private val idToHabit = mutableMapOf<UUID, HabitData>()
-
-    val size: Int get() = keys.size
 
     fun addOrUpdate(habit: HabitData) {
         if (!idToHabit.containsKey(habit.id)) {
@@ -20,11 +19,7 @@ object HabitStorage {
         return idToHabit[habitId]
     }
 
-    fun getByIndex(index: Int): HabitData? {
-        return idToHabit[keys[index]]
-    }
-
-    fun getIndexById(habitId: UUID): Int {
-        return keys.indexOf(habitId)
+    fun getByType(habitType: HabitType): List<HabitData> {
+        return idToHabit.values.filter { it.type == habitType }
     }
 }

@@ -1,61 +1,38 @@
 package com.example.task2.activities
 
-import android.app.Activity
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
-import com.example.task2.adapters.HabitsAdapter
-import com.example.task2.databinding.ActivityMainBinding
-import com.example.task2.storage.HabitStorage
-import java.util.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.example.task2.R
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var habitsAdapter: HabitsAdapter
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        habitsAdapter = HabitsAdapter(this::changeHabit)
+        setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
-        binding.habitsRecyclerView.adapter = habitsAdapter
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.nav_habits, R.id.nav_about),
+            findViewById(R.id.activity_main_drawer_layout))
 
-        binding.btnAddNewHabit.setOnClickListener {
-            addHabit()
-        }
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navController: NavController = findNavController(R.id.nav_host_fragment)
+
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
     }
 
-    private fun addHabit() {
-        val intent = Intent(this, EditHabitActivity::class.java)
-        resultLauncher.launch(intent)
-    }
-
-    private fun changeHabit(habitId: UUID) {
-        val intent = Intent(
-            this,
-            EditHabitActivity::class.java
-        ).apply {
-            putExtra(EditHabitActivity.HABIT_ID, habitId)
-        }
-        resultLauncher.launch(intent)
-    }
-
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            val habitId = data?.getSerializableExtra(EditHabitActivity.HABIT_ID) as UUID?
-            if (habitId != null) {
-                val index = HabitStorage.getIndexById(habitId)
-
-                if (data?.extras?.containsKey(EditHabitActivity.HABIT_ID) == true) {
-                    habitsAdapter.notifyItemChanged(index)
-                } else {
-                    habitsAdapter.notifyItemInserted(index)
-                }
-            }
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
