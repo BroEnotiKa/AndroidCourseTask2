@@ -11,7 +11,7 @@ class HabitTypesAdapter(
 ) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int = 2
 
-    override fun createFragment(position: Int): Fragment = when(position) {
+    override fun createFragment(position: Int): Fragment = when (position) {
         0 -> HabitByTypeFragment.newInstance(HabitType.Good)
         else -> HabitByTypeFragment.newInstance(HabitType.Bad)
     }

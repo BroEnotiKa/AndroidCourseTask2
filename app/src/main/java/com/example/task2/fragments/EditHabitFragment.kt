@@ -14,7 +14,7 @@ import com.example.task2.models.*
 import com.example.task2.storage.HabitStorage
 import java.util.*
 
-class EditHabitFragment: Fragment(), IColorSetter {
+class EditHabitFragment : Fragment(), IColorSetter {
     companion object {
         const val HABIT_ID = "HABIT_ID"
     }
@@ -38,8 +38,7 @@ class EditHabitFragment: Fragment(), IColorSetter {
         if (habitId != null) {
             updateView(habitId)
             binding.btnSaveHabit.setOnClickListener { save(habitId) }
-        }
-        else {
+        } else {
             binding.btnSaveHabit.setOnClickListener { save() }
         }
 
@@ -49,23 +48,24 @@ class EditHabitFragment: Fragment(), IColorSetter {
     }
 
     private fun updateView(habitId: UUID) {
-        val habit = HabitStorage.getById(habitId)!!
-        binding.habitName.setText(habit.name)
-        binding.habitDescription.setText(habit.description)
+        HabitStorage.getById(habitId)?.let { habit ->
+            binding.habitName.setText(habit.name)
+            binding.habitDescription.setText(habit.description)
 
-        val radioButtonId = when (habit.type) {
-            HabitType.Good -> R.id.radioButtonGood
-            HabitType.Bad -> R.id.radioButtonBad
+            val radioButtonId = when (habit.type) {
+                HabitType.Good -> R.id.radioButtonGood
+                HabitType.Bad -> R.id.radioButtonBad
+            }
+
+            binding.radioGroup.check(radioButtonId)
+
+            binding.prioritySpinner.setSelection(habit.priority.value)
+            binding.editRepeatCount.setText(habit.periodicity.repeatCount.toString())
+            binding.editFrequency.setText(habit.periodicity.frequency.toString())
+
+            borderColor = habit.borderColor
+            binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(borderColor)
         }
-
-        binding.radioGroup.check(radioButtonId)
-
-        binding.prioritySpinner.setSelection(habit.priority.value)
-        binding.editRepeatCount.setText(habit.periodicity.repeatCount.toString())
-        binding.editFrequency.setText(habit.periodicity.frequency.toString())
-
-        borderColor = habit.borderColor
-        binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(borderColor)
     }
 
     private fun save(habitId: UUID = UUID.randomUUID()) {

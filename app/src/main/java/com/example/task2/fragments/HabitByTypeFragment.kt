@@ -15,15 +15,13 @@ import com.example.task2.models.HabitType
 import com.example.task2.storage.HabitStorage
 import java.util.*
 
-class HabitByTypeFragment: Fragment() {
+class HabitByTypeFragment : Fragment() {
     companion object {
         private const val HABIT_TYPE = "HABIT_TYPE"
 
         fun newInstance(habitType: HabitType): HabitByTypeFragment =
             HabitByTypeFragment().apply {
-                arguments = Bundle().apply {
-                    putSerializable(HABIT_TYPE, habitType)
-                }
+                arguments = bundleOf(HABIT_TYPE to habitType)
             }
     }
 

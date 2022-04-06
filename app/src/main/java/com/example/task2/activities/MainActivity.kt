@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.nav_habits, R.id.nav_about),
-            findViewById(R.id.activity_main_drawer_layout))
+            findViewById(R.id.activity_main_drawer_layout)
+        )
 
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController: NavController = findNavController(R.id.nav_host_fragment)

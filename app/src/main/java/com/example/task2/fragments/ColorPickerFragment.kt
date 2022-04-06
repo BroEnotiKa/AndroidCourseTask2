@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.task2.R
 import com.example.task2.models.IColorSetter
 
-class ColorPickerFragment: DialogFragment() {
+class ColorPickerFragment : DialogFragment() {
     companion object {
         const val TAG = "ColorPickerFragmentTag"
     }
@@ -26,7 +26,7 @@ class ColorPickerFragment: DialogFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.color_picker, container, false)
         buttons = view.findViewById<LinearLayout>(R.id.color_buttons).touchables
-        buttons.forEach { it -> it.setOnClickListener{ setColorFrom(it as Button) } }
+        buttons.forEach { it -> it.setOnClickListener { setColorFrom(it as Button) } }
         return view
     }
 
