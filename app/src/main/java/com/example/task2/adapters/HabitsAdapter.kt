@@ -20,7 +20,7 @@ class HabitsAdapter(
 
     fun updateHabits(habitList: List<HabitData>) {
         habitsData = habitList
-        notifyItemRangeChanged(0, habitsData.count())
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
