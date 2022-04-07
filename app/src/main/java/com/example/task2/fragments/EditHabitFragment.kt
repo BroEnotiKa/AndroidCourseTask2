@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.task2.R
 import com.example.task2.databinding.EditHabitFragmentBinding
 import com.example.task2.models.*
-import com.example.task2.storage.HabitStorage
+import com.example.task2.viewmodels.EditHabitViewModel
 import java.util.*
 
 class EditHabitFragment : Fragment(), IColorSetter {
@@ -20,19 +22,26 @@ class EditHabitFragment : Fragment(), IColorSetter {
     }
 
     private lateinit var binding: EditHabitFragmentBinding
-    var borderColor: Int = com.google.android.material.R.color.design_default_color_primary
+    private lateinit var viewModel: EditHabitViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return EditHabitViewModel() as T
+            }
+        }).get(EditHabitViewModel::class.java)
         binding = EditHabitFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(viewModel.borderColor)
 
         val habitId = arguments?.getSerializable(HABIT_ID) as UUID?
         if (habitId != null) {
@@ -48,7 +57,7 @@ class EditHabitFragment : Fragment(), IColorSetter {
     }
 
     private fun updateView(habitId: UUID) {
-        HabitStorage.getById(habitId)?.let { habit ->
+        viewModel.getById(habitId)?.let { habit ->
             binding.habitName.setText(habit.name)
             binding.habitDescription.setText(habit.description)
 
@@ -63,8 +72,8 @@ class EditHabitFragment : Fragment(), IColorSetter {
             binding.editRepeatCount.setText(habit.periodicity.repeatCount.toString())
             binding.editFrequency.setText(habit.periodicity.frequency.toString())
 
-            borderColor = habit.borderColor
-            binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(borderColor)
+            viewModel.borderColor = habit.borderColor
+            binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(viewModel.borderColor)
         }
     }
 
@@ -85,10 +94,10 @@ class EditHabitFragment : Fragment(), IColorSetter {
                 binding.editRepeatCount.text.toString().toInt(),
                 binding.editFrequency.text.toString().toInt()
             ),
-            borderColor
+            viewModel.borderColor
         )
 
-        HabitStorage.addOrUpdate(habitData)
+        viewModel.addOrUpdate(habitData)
 
         view?.findNavController()?.navigate(R.id.action_nav_edit_habit_to_nav_habits)
     }
@@ -124,7 +133,7 @@ class EditHabitFragment : Fragment(), IColorSetter {
     }
 
     override fun useColor(color: Int) {
-        this.borderColor = color
+        viewModel.borderColor = color
         binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(color)
     }
 }

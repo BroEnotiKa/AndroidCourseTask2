@@ -6,16 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.example.task2.R
 import com.example.task2.adapters.HabitsAdapter
 import com.example.task2.databinding.HabitByTypeFragmentBinding
 import com.example.task2.models.HabitType
-import com.example.task2.storage.HabitStorage
+import com.example.task2.viewmodels.HabitListViewModel
 import java.util.*
 
-class HabitByTypeFragment : Fragment() {
+class HabitByTypeFragment : Fragment(), LifecycleOwner {
     companion object {
         private const val HABIT_TYPE = "HABIT_TYPE"
 
@@ -26,12 +29,21 @@ class HabitByTypeFragment : Fragment() {
     }
 
     private lateinit var binding: HabitByTypeFragmentBinding
+    private lateinit var viewModel: HabitListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val habitType = arguments?.getSerializable(HABIT_TYPE) as HabitType
+
+        viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return HabitListViewModel(habitType) as T
+            }
+        })[HabitListViewModel::class.java]
+
         binding = HabitByTypeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,16 +51,27 @@ class HabitByTypeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val habitType = arguments?.getSerializable(HABIT_TYPE) as HabitType
-        val habitsAdapter = HabitsAdapter(this::editHabit, HabitStorage.getByType(habitType))
-
+        val habitsAdapter = HabitsAdapter(this::editHabit, viewModel.habits.value ?: emptyList())
         binding.habitsRecyclerView.apply { adapter = habitsAdapter }
 
-        binding.btnAddNewHabit.setOnClickListener(
+        viewModel.habits.observe(viewLifecycleOwner) {
+            it.let { habitsAdapter.updateHabits(it) }
+        }
+
+        viewModel.filteredHabits.observe(viewLifecycleOwner) {
+            it.let { habitsAdapter.updateHabits(it) }
+        }
+
+        binding.btnAddNewHabit.setOnClickListener (
             Navigation.createNavigateOnClickListener(
                 R.id.action_from_nav_habits_to_nav_edit_habit
             )
         )
+
+        childFragmentManager
+            .beginTransaction()
+            .replace(R.id.bottomSheetContainer, BottomSheetFragment())
+            .commit()
     }
 
     private fun editHabit(habitId: UUID) {

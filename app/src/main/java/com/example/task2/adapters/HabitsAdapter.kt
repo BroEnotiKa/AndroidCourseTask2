@@ -14,9 +14,14 @@ import java.util.*
 
 class HabitsAdapter(
     private val onClickListener: (UUID) -> Unit,
-    private val habitsData: List<HabitData>
-) : RecyclerView.Adapter<HabitsAdapter.HabitViewHolder>() {
+    private var habitsData: List<HabitData>
+) : RecyclerView.Adapter<HabitsAdapter.HabitViewHolder>() { // todo: change to list adapter
     lateinit var context: Context
+
+    fun updateHabits(habitList: List<HabitData>) {
+        habitsData = habitList
+        notifyItemRangeChanged(0, habitsData.count())
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
         context = parent.context
