@@ -51,7 +51,7 @@ class HabitListViewModel(private val habitType: HabitType) : ViewModel(), Filter
                 h.sortedBy { habit -> habit.periodicity.repeatCount * habit.periodicity.frequency }
             }
             1 -> mutableHabits.value = mutableHabits.value?.let { h ->
-                h.sortedBy { habit -> habit.priority.value }
+                h.sortedByDescending { habit -> habit.priority.value }
             }
         }
     }
