@@ -33,7 +33,7 @@ class EditHabitFragment : Fragment(), IColorSetter {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return EditHabitViewModel() as T
             }
-        }).get(EditHabitViewModel::class.java)
+        })[EditHabitViewModel::class.java]
         binding = EditHabitFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
