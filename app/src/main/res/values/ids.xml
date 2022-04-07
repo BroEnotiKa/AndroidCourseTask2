@@ -5,4 +5,5 @@
     <item name="habit_priority" type="id" />
     <item name="habit_description" type="id" />
     <item name="habit_name" type="id" />
+    <item name="bottomSheetContainer" type="id" />
 </resources>

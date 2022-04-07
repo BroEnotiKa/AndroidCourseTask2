@@ -24,4 +24,9 @@
     <string name="habits">Habits</string>
     <string name="edit_habit">Edit habit</string>
     <string name="about">About</string>
+
+    <string-array name="sort_parameters">
+        <item>Frequency</item>
+        <item>Priority</item>
+    </string-array>
 </resources>
