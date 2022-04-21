@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.task2.models.HabitData
 import com.example.task2.models.HabitType
-import com.example.task2.storage.HabitStorage
+import com.example.task2.storage.HabitRepository
 
 class HabitListViewModel(private val habitType: HabitType) : ViewModel(), Filterable {
     private val mutableHabits = MutableLiveData<List<HabitData>>()
@@ -18,6 +18,9 @@ class HabitListViewModel(private val habitType: HabitType) : ViewModel(), Filter
 
     init {
         updateHabits()
+        HabitRepository().getAll().observeForever {
+            mutableHabits.value = it.filter { el -> el.type == habitType }
+        }
         mutableHabitsFilterList.value = habits.value
     }
 
@@ -57,6 +60,6 @@ class HabitListViewModel(private val habitType: HabitType) : ViewModel(), Filter
     }
 
     private fun updateHabits() {
-        mutableHabits.value = HabitStorage.getByType(habitType)
+        mutableHabits.value = HabitRepository().getByType(habitType).value ?: emptyList()
     }
 }

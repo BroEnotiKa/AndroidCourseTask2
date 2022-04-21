@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.task2.R
 import com.example.task2.databinding.HabitItemsBinding
 import com.example.task2.models.HabitData
-import java.util.*
 
 class HabitsAdapter(
-    private val onClickListener: (UUID) -> Unit,
+    private val onClickListener: (Long) -> Unit,
     private var habitsData: List<HabitData>
 ) : RecyclerView.Adapter<HabitsAdapter.HabitViewHolder>() { // todo: change to list adapter
     lateinit var context: Context

@@ -16,7 +16,6 @@ import com.example.task2.adapters.HabitsAdapter
 import com.example.task2.databinding.HabitByTypeFragmentBinding
 import com.example.task2.models.HabitType
 import com.example.task2.viewmodels.HabitListViewModel
-import java.util.*
 
 class HabitByTypeFragment : Fragment(), LifecycleOwner {
     companion object {
@@ -55,11 +54,11 @@ class HabitByTypeFragment : Fragment(), LifecycleOwner {
         binding.habitsRecyclerView.apply { adapter = habitsAdapter }
 
         viewModel.habits.observe(viewLifecycleOwner) {
-            it.let { habitsAdapter.updateHabits(it) }
+            it.let { h -> habitsAdapter.updateHabits(h ?: emptyList()) }
         }
 
         viewModel.filteredHabits.observe(viewLifecycleOwner) {
-            it.let { habitsAdapter.updateHabits(it) }
+            it.let { h -> habitsAdapter.updateHabits(h ?: emptyList()) }
         }
 
         binding.btnAddNewHabit.setOnClickListener (
@@ -74,7 +73,7 @@ class HabitByTypeFragment : Fragment(), LifecycleOwner {
             .commit()
     }
 
-    private fun editHabit(habitId: UUID) {
+    private fun editHabit(habitId: Long) {
         val bundle = bundleOf(EditHabitFragment.HABIT_ID to habitId)
         view?.findNavController()?.navigate(R.id.action_from_nav_habits_to_nav_edit_habit, bundle)
     }

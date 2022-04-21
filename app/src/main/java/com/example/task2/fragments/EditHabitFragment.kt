@@ -43,7 +43,7 @@ class EditHabitFragment : Fragment(), IColorSetter {
 
         binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(viewModel.borderColor)
 
-        val habitId = arguments?.getSerializable(HABIT_ID) as UUID?
+        val habitId = arguments?.getSerializable(HABIT_ID) as Long?
         if (habitId != null) {
             updateView(habitId)
             binding.btnSaveHabit.setOnClickListener { save(habitId) }
@@ -56,8 +56,9 @@ class EditHabitFragment : Fragment(), IColorSetter {
         }
     }
 
-    private fun updateView(habitId: UUID) {
-        viewModel.getById(habitId)?.let { habit ->
+    private fun updateView(habitId: Long) {
+        viewModel.getById(habitId).let { h ->
+            val habit = h.value ?: return
             binding.habitName.setText(habit.name)
             binding.habitDescription.setText(habit.description)
 
@@ -77,7 +78,7 @@ class EditHabitFragment : Fragment(), IColorSetter {
         }
     }
 
-    private fun save(habitId: UUID = UUID.randomUUID()) {
+    private fun save(id: Long? = null) {
         if (highlightNotFilledFields())
             return
 
@@ -85,7 +86,6 @@ class EditHabitFragment : Fragment(), IColorSetter {
         val habitTypeValue = binding.radioGroup.indexOfChild(requireView().findViewById(checkedRadioButtonId))
 
         val habitData = HabitData(
-            habitId,
             binding.habitName.text.toString(),
             binding.habitDescription.text.toString(),
             HabitPriority.from(binding.prioritySpinner.selectedItemPosition),
@@ -97,6 +97,8 @@ class EditHabitFragment : Fragment(), IColorSetter {
             viewModel.borderColor
         )
 
+        if (id != null)
+            habitData.id = id
         viewModel.addOrUpdate(habitData)
 
         view?.findNavController()?.navigate(R.id.action_nav_edit_habit_to_nav_habits)
