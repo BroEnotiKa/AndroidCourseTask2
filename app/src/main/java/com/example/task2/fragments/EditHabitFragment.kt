@@ -14,11 +14,10 @@ import com.example.task2.R
 import com.example.task2.databinding.EditHabitFragmentBinding
 import com.example.task2.models.*
 import com.example.task2.viewmodels.EditHabitViewModel
-import java.util.*
 
 class EditHabitFragment : Fragment(), IColorSetter {
     companion object {
-        const val HABIT_ID = "HABIT_ID"
+        const val HABIT_DATA = "HABIT_DATA"
     }
 
     private lateinit var binding: EditHabitFragmentBinding
@@ -43,42 +42,35 @@ class EditHabitFragment : Fragment(), IColorSetter {
 
         binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(viewModel.borderColor)
 
-        val habitId = arguments?.getSerializable(HABIT_ID) as Long?
-        if (habitId != null) {
-            updateView(habitId)
-            binding.btnSaveHabit.setOnClickListener { save(habitId) }
-        } else {
-            binding.btnSaveHabit.setOnClickListener { save() }
-        }
+        val habit = arguments?.getSerializable(HABIT_DATA) as HabitData? ?: return
+        updateView(habit)
+        binding.btnSaveHabit.setOnClickListener { save(habit.id) }
 
         binding.fabBorderColor.setOnClickListener {
             ColorPickerFragment().show(childFragmentManager, ColorPickerFragment.TAG)
         }
     }
 
-    private fun updateView(habitId: Long) {
-        viewModel.getById(habitId).let { h ->
-            val habit = h.value ?: return
-            binding.habitName.setText(habit.name)
-            binding.habitDescription.setText(habit.description)
+    private fun updateView(habit: HabitData) {
+        binding.habitName.setText(habit.name)
+        binding.habitDescription.setText(habit.description)
 
-            val radioButtonId = when (habit.type) {
-                HabitType.Good -> R.id.radioButtonGood
-                HabitType.Bad -> R.id.radioButtonBad
-            }
-
-            binding.radioGroup.check(radioButtonId)
-
-            binding.prioritySpinner.setSelection(habit.priority.value)
-            binding.editRepeatCount.setText(habit.periodicity.repeatCount.toString())
-            binding.editFrequency.setText(habit.periodicity.frequency.toString())
-
-            viewModel.borderColor = habit.borderColor
-            binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(viewModel.borderColor)
+        val radioButtonId = when (habit.type) {
+            HabitType.Good -> R.id.radioButtonGood
+            HabitType.Bad -> R.id.radioButtonBad
         }
+
+        binding.radioGroup.check(radioButtonId)
+
+        binding.prioritySpinner.setSelection(habit.priority.value)
+        binding.editRepeatCount.setText(habit.periodicity.repeatCount.toString())
+        binding.editFrequency.setText(habit.periodicity.frequency.toString())
+
+        viewModel.borderColor = habit.borderColor
+        binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(viewModel.borderColor)
     }
 
-    private fun save(id: Long? = null) {
+    private fun save(id: Long) {
         if (highlightNotFilledFields())
             return
 
@@ -96,9 +88,7 @@ class EditHabitFragment : Fragment(), IColorSetter {
             ),
             viewModel.borderColor
         )
-
-        if (id != null)
-            habitData.id = id
+        habitData.id = id
         viewModel.addOrUpdate(habitData)
 
         view?.findNavController()?.navigate(R.id.action_nav_edit_habit_to_nav_habits)

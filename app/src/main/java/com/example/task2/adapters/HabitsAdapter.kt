@@ -12,7 +12,7 @@ import com.example.task2.databinding.HabitItemsBinding
 import com.example.task2.models.HabitData
 
 class HabitsAdapter(
-    private val onClickListener: (Long) -> Unit,
+    private val onClickListener: (HabitData) -> Unit,
     private var habitsData: List<HabitData>
 ) : RecyclerView.Adapter<HabitsAdapter.HabitViewHolder>() { // todo: change to list adapter
     lateinit var context: Context
@@ -32,7 +32,7 @@ class HabitsAdapter(
         val habit = habitsData[position]
         holder.bind(habit)
         holder.itemView.setOnClickListener {
-            onClickListener(habit.id)
+            onClickListener(habit)
         }
     }
 

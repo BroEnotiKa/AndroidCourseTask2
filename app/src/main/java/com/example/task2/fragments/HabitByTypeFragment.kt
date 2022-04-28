@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import com.example.task2.R
 import com.example.task2.adapters.HabitsAdapter
 import com.example.task2.databinding.HabitByTypeFragmentBinding
+import com.example.task2.models.HabitData
 import com.example.task2.models.HabitType
 import com.example.task2.viewmodels.HabitListViewModel
 
@@ -73,8 +74,8 @@ class HabitByTypeFragment : Fragment(), LifecycleOwner {
             .commit()
     }
 
-    private fun editHabit(habitId: Long) {
-        val bundle = bundleOf(EditHabitFragment.HABIT_ID to habitId)
+    private fun editHabit(habit: HabitData) {
+        val bundle = bundleOf(EditHabitFragment.HABIT_DATA to habit)
         view?.findNavController()?.navigate(R.id.action_from_nav_habits_to_nav_edit_habit, bundle)
     }
 }

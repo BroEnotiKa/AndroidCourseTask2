@@ -11,6 +11,4 @@ class EditHabitViewModel : ViewModel() {
     fun addOrUpdate(habit: HabitData) {
         HabitRepository().addOrUpdate(habit)
     }
-
-    fun getById(habitId: Long) = HabitRepository().getById(habitId)
 }
