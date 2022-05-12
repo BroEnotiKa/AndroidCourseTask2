@@ -15,6 +15,7 @@ data class HabitData(
     val periodicity: HabitPeriodicity,
     val borderColor: Int
 ) : Serializable {
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    @PrimaryKey
+    var id: String = ""
+    var date: Int = 0
 }
