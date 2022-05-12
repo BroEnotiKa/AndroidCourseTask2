@@ -42,16 +42,17 @@ class EditHabitFragment : Fragment(), IColorSetter {
 
         binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(viewModel.borderColor)
 
-        val habit = arguments?.getSerializable(HABIT_DATA) as HabitData? ?: return
+        val habit = arguments?.getSerializable(HABIT_DATA) as HabitData?
         updateView(habit)
-        binding.btnSaveHabit.setOnClickListener { save(habit.id) }
+        binding.btnSaveHabit.setOnClickListener { save(habit?.id) }
 
         binding.fabBorderColor.setOnClickListener {
             ColorPickerFragment().show(childFragmentManager, ColorPickerFragment.TAG)
         }
     }
 
-    private fun updateView(habit: HabitData) {
+    private fun updateView(habit: HabitData?) {
+        habit ?: return
         binding.habitName.setText(habit.name)
         binding.habitDescription.setText(habit.description)
 
@@ -70,7 +71,7 @@ class EditHabitFragment : Fragment(), IColorSetter {
         binding.fabBorderColor.backgroundTintList = ColorStateList.valueOf(viewModel.borderColor)
     }
 
-    private fun save(id: Long) {
+    private fun save(id: Long?) {
         if (highlightNotFilledFields())
             return
 
@@ -88,7 +89,8 @@ class EditHabitFragment : Fragment(), IColorSetter {
             ),
             viewModel.borderColor
         )
-        habitData.id = id
+        if (id != null)
+            habitData.id = id
         viewModel.addOrUpdate(habitData)
 
         view?.findNavController()?.navigate(R.id.action_nav_edit_habit_to_nav_habits)
