@@ -1,12 +1,7 @@
-package com.example.task2.models
+package com.example.domain.entities
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 import java.io.Serializable
 
-@Entity
-@TypeConverters(HabitPriorityConverter::class, HabitTypeConverter::class, HabitPeriodicityConverter::class)
 data class HabitData(
     val name: String,
     val description: String,
@@ -15,7 +10,7 @@ data class HabitData(
     val periodicity: HabitPeriodicity,
     val borderColor: Int
 ) : Serializable {
-    @PrimaryKey
     var id: String = ""
     var date: Int = 0
+    var doneDates = mutableListOf<Int>()
 }
