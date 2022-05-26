@@ -1,4 +1,4 @@
-package com.example.task2.activities
+package com.example.presentation.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.task2.R
+import com.example.presentation.R
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
