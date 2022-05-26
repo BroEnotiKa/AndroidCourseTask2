@@ -1,4 +1,4 @@
-package com.example.task2.fragments
+package com.example.presentation.fragments
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -7,13 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.example.task2.R
-import com.example.task2.databinding.EditHabitFragmentBinding
-import com.example.task2.models.*
-import com.example.task2.viewmodels.EditHabitViewModel
+import com.example.domain.entities.*
+import com.example.presentation.app.MyApp
+import com.example.presentation.R
+import com.example.presentation.databinding.EditHabitFragmentBinding
+import com.example.presentation.viewModels.EditHabitViewModel
+import javax.inject.Inject
 
 class EditHabitFragment : Fragment(), IColorSetter {
     companion object {
@@ -21,18 +21,17 @@ class EditHabitFragment : Fragment(), IColorSetter {
     }
 
     private lateinit var binding: EditHabitFragmentBinding
-    private lateinit var viewModel: EditHabitViewModel
+    @Inject
+    lateinit var viewModel: EditHabitViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return EditHabitViewModel() as T
-            }
-        })[EditHabitViewModel::class.java]
+        (requireActivity().application as MyApp).initEditHabitViewModelComponent(this)
+        (requireActivity().application as MyApp).editHabitViewModelComponent.inject(this)
+
         binding = EditHabitFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }

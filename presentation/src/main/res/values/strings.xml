@@ -24,6 +24,10 @@
     <string name="habits">Habits</string>
     <string name="edit_habit">Edit habit</string>
     <string name="about">About</string>
+    <string name="good_toast_1">You should do it</string>
+    <string name="good_toast_2">You are breathtaking</string>
+    <string name="bad_toast_1">You can do it</string>
+    <string name="bad_toast_2">Stop doing it</string>
 
     <string-array name="sort_parameters">
         <item>Frequency</item>
