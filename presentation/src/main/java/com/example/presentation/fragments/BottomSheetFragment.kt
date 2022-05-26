@@ -1,14 +1,14 @@
-package com.example.task2.fragments
+package com.example.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
-import com.example.task2.databinding.BottomSheetBinding
-import com.example.task2.viewmodels.HabitListViewModel
+import com.example.presentation.databinding.BottomSheetBinding
+import com.example.presentation.viewModels.HabitListViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
@@ -26,7 +26,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireParentFragment())[HabitListViewModel::class.java]
+        viewModel = ViewModelProvider(requireParentFragment()).get(HabitListViewModel::class.java)
 
         binding.habitSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -41,8 +41,9 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
         }
 
-        binding.habitSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        binding.habitSearch.setOnQueryTextListener(object :
+            android.widget.SearchView.OnQueryTextListener,
+            SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }

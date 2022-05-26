@@ -1,4 +1,4 @@
-package com.example.task2.fragments
+package com.example.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
-import com.example.task2.R
-import com.example.task2.models.IColorSetter
+import com.example.domain.entities.IColorSetter
+import com.example.presentation.R
 
 class ColorPickerFragment : DialogFragment() {
     companion object {

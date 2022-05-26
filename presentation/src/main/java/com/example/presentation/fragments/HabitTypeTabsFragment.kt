@@ -1,4 +1,4 @@
-package com.example.task2.fragments
+package com.example.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.task2.R
-import com.example.task2.adapters.HabitTypesAdapter
-import com.example.task2.databinding.HabitTypeTabsFragmentBinding
+import com.example.presentation.R
+import com.example.presentation.adapters.HabitTypesAdapter
+import com.example.presentation.databinding.HabitTypeTabsFragmentBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HabitTypeTabsFragment : Fragment() {

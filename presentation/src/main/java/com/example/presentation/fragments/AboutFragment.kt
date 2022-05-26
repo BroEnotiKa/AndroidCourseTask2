@@ -1,13 +1,13 @@
-package com.example.task2.fragments
+package com.example.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.task2.R
+import com.example.presentation.R
 
-class AboutFragment : Fragment() {
+class AboutFragment: Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
