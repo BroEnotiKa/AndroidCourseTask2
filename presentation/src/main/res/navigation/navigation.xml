@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/nav_habits"
-        android:name="com.example.task2.fragments.HabitTypeTabsFragment"
+        android:name="com.example.presentation.fragments.HabitTypeTabsFragment"
         android:label="@string/habits"
         tools:layout="@layout/habit_type_tabs_fragment" >
         <action
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/nav_edit_habit"
-        android:name="com.example.task2.fragments.EditHabitFragment"
+        android:name="com.example.presentation.fragments.EditHabitFragment"
         android:label="@string/edit_habit"
         tools:layout="@layout/edit_habit_fragment" >
         <action
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/nav_about"
-        android:name="com.example.task2.fragments.AboutFragment"
+        android:name="com.example.presentation.fragments.AboutFragment"
         android:label="@string/about"
         tools:layout="@layout/about_fragment" />
 
